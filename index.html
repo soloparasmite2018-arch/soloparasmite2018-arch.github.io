@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para ti, Manzanita 🍎✨</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: "Georgia", serif;
+    }
+
+    body{
+      background: radial-gradient(circle at top, #3b0050, #07000f);
+      color: #ffffff;
+      overflow-x:hidden;
+      min-height:100vh;
+      text-align:center;
+    }
+
+    /* Estrellas */
+    .stars{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      z-index:-2;
+      background: transparent;
+      overflow:hidden;
+    }
+
+    .star{
+      position:absolute;
+      width:2px;
+      height:2px;
+      background:white;
+      border-radius:50%;
+      opacity:0.85;
+      animation: twinkle 3s infinite ease-in-out;
+    }
+
+    @keyframes twinkle{
+      0%,100%{ opacity:0.25; transform:scale(1);}
+      50%{ opacity:1; transform:scale(1.9);}
+    }
+
+    /* Corazones flotando */
+    .heart{
+      position:fixed;
+      bottom:-50px;
+      font-size:20px;
+      opacity:0.75;
+      animation: floatUp 8s linear infinite;
+      z-index:-1;
+      filter: drop-shadow(0 0 10px rgba(255,100,200,0.45));
+    }
+
+    @keyframes floatUp{
+      0%{
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity:0.0;
+      }
+      20%{opacity:0.85;}
+      100%{
+        transform: translateY(-110vh) translateX(50px) rotate(360deg);
+        opacity:0;
+      }
+    }
+
+    /* Container */
+    .container{
+      width:92%;
+      max-width:900px;
+      margin:0 auto;
+      padding:40px 0;
+    }
+
+    h1{
+      font-size:2.35rem;
+      color:#ffd4f2;
+      text-shadow:0 0 18px rgba(255,120,220,0.9);
+      margin-bottom:15px;
+      line-height:1.2;
+    }
+
+    .subtitle{
+      font-size:1.08rem;
+      opacity:0.95;
+      margin-bottom:30px;
+      line-height:1.8;
+      color:#fff0fa;
+      text-shadow:0 0 10px rgba(0,0,0,0.6);
+    }
+
+    /* Card */
+    .card{
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,160,230,0.25);
+      padding:22px;
+      margin:18px 0;
+      border-radius:22px;
+      box-shadow:0 0 30px rgba(255,100,200,0.18);
+      backdrop-filter: blur(8px);
+      transition:0.3s ease;
+    }
+
+    .card:hover{
+      transform: scale(1.01);
+      box-shadow:0 0 35px rgba(255,100,200,0.28);
+    }
+
+    .title{
+      font-size:1.55rem;
+      color:#ffe0f6;
+      margin-bottom:15px;
+      text-shadow:0 0 12px rgba(255,160,230,0.8);
+      line-height:1.25;
+    }
+
+    p{
+      font-size:1.05rem;
+      line-height:1.9;
+      opacity:0.98;
+      color:#ffffff;
+      text-shadow:0 0 12px rgba(0,0,0,0.55);
+    }
+
+    /* Botón */
+    .btn{
+      margin-top:18px;
+      padding:13px 18px;
+      border:none;
+      border-radius:16px;
+      background: linear-gradient(90deg, #ff4fbf, #ffb3ea);
+      color:#2b002b;
+      font-weight:bold;
+      cursor:pointer;
+      font-size:1.05rem;
+      transition:0.3s ease;
+      box-shadow:0 0 22px rgba(255,100,200,0.65);
+    }
+
+    .btn:hover{
+      transform: translateY(-2px);
+      box-shadow:0 0 35px rgba(255,120,220,0.9);
+    }
+
+    /* Select */
+    select{
+      margin-top:15px;
+      padding:12px;
+      width:100%;
+      border-radius:14px;
+      border: 1px solid rgba(255,180,240,0.4);
+      background: rgba(0,0,0,0.25);
+      color:#fff;
+      font-size:1rem;
+      outline:none;
+      text-align:center;
+      box-shadow:0 0 12px rgba(255,120,220,0.2);
+    }
+
+    /* Pergamino */
+    .scroll{
+      background: #fbeccf;
+      color:#2b1b00;
+      border-radius:18px;
+      padding:20px;
+      margin-top:15px;
+      font-size:1.05rem;
+      box-shadow:0 0 28px rgba(255,200,120,0.4);
+      border: 2px solid rgba(120,70,0,0.35);
+      position:relative;
+      line-height:1.85;
+    }
+
+    .scroll:before,
+    .scroll:after{
+      content:"";
+      position:absolute;
+      width:100%;
+      height:10px;
+      left:0;
+      background:rgba(150,90,30,0.25);
+    }
+
+    .scroll:before{
+      top:0;
+      border-radius:18px 18px 0 0;
+    }
+
+    .scroll:after{
+      bottom:0;
+      border-radius:0 0 18px 18px;
+    }
+
+    /* Contador */
+    .counter{
+      font-size:1.25rem;
+      color:#ffffff;
+      margin-top:12px;
+      font-weight:bold;
+      text-shadow:0 0 16px rgba(255,160,220,0.8);
+      line-height:1.6;
+    }
+
+    /* Lechuza */
+    .owl{
+      position:fixed;
+      top:85px;
+      left:-200px;
+      font-size:3.3rem;
+      z-index:10;
+      animation: owlFly 8s ease-in-out forwards;
+      filter: drop-shadow(0 0 15px rgba(255,200,240,0.45));
+    }
+
+    @keyframes owlFly{
+      0%{ left:-200px; transform:rotate(0deg);}
+      40%{ left:35%; transform:rotate(8deg);}
+      70%{ left:55%; transform:rotate(-6deg);}
+      100%{ left:110%; transform:rotate(0deg);}
+    }
+
+    /* Carta */
+    .letter{
+      position:fixed;
+      top:160px;
+      left:50%;
+      transform:translateX(-50%);
+      background:rgba(15, 0, 25, 0.92);
+      border:1px solid rgba(255,200,240,0.35);
+      padding:20px;
+      border-radius:20px;
+      width:92%;
+      max-width:520px;
+      display:none;
+      z-index:20;
+      box-shadow:0 0 35px rgba(255,150,220,0.25);
+      backdrop-filter: blur(14px);
+      animation: fadeIn 1.2s ease;
+      color:#fff8fe;
+    }
+
+    @keyframes fadeIn{
+      from{opacity:0; transform:translateX(-50%) translateY(-20px);}
+      to{opacity:1; transform:translateX(-50%) translateY(0);}
+    }
+
+    .letter h2{
+      color:#ffb8ea;
+      margin-bottom:12px;
+      font-size:1.45rem;
+      text-shadow:0 0 14px rgba(255,130,220,0.75);
+    }
+
+    /* Partículas mágicas */
+    .sparkle{
+      position:fixed;
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      background:white;
+      box-shadow:0 0 14px rgba(255,255,255,0.95);
+      animation: sparkleAnim 1.2s ease forwards;
+      z-index:50;
+    }
+
+    @keyframes sparkleAnim{
+      0%{ transform:scale(1); opacity:1;}
+      100%{ transform:translateY(-60px) scale(0); opacity:0;}
+    }
+
+    footer{
+      margin-top:50px;
+      opacity:0.9;
+      font-size:0.95rem;
+      line-height:1.75;
+      color:#fff0fa;
+      text-shadow:0 0 12px rgba(0,0,0,0.65);
+    }
+
+    /* Ajustes para móvil */
+    @media(max-width: 480px){
+      h1{
+        font-size:2.05rem;
+      }
+
+      .subtitle{
+        font-size:1rem;
+      }
+
+      .card{
+        padding:18px;
+        border-radius:20px;
+      }
+
+      .title{
+        font-size:1.35rem;
+      }
+
+      p{
+        font-size:1rem;
+      }
+
+      .btn{
+        width:100%;
+        font-size:1.05rem;
+        padding:14px;
+      }
+
+      .scroll{
+        font-size:1rem;
+        padding:18px;
+      }
+
+      .counter{
+        font-size:1.1rem;
+      }
+
+      .owl{
+        font-size:3rem;
+        top:75px;
+      }
+
+      .letter{
+        top:140px;
+        padding:18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Estrellas -->
+  <div class="stars" id="stars"></div>
+
+  <!-- Lechuza -->
+  <div class="owl" id="owl">🦉💌</div>
+
+  <!-- Carta -->
+  <div class="letter" id="letter">
+    <h2>📜 Carta de Bienvenida</h2>
+    <p>
+      Hola Manzanita 🍎✨<br><br>
+      Si estás leyendo esto… entonces la magia funcionó.<br><br>
+      Esta carta viajó desde mi corazón, cruzando kilómetros, noches y destinos…  
+      solo para recordarte algo simple:<br><br>
+      <b>me estás gustando más de lo que debería…</b><br>
+      y eso me hace feliz.
+    </p>
+
+    <button class="btn" onclick="closeLetter()">Cerrar carta ✨</button>
+  </div>
+
+  <div class="container">
+    <h1>Para ti, Manzanita 🍎✨</h1>
+
+    <div class="subtitle">
+      Esta página no es solo un detalle…  
+      es un pequeño hechizo hecho con cariño,  
+      para recordarte que aunque estemos lejos,  
+      yo te pienso demasiado. 💖
+    </div>
+
+    <!-- Contador -->
+    <div class="card">
+      <div class="title">⏳ Nuestro tiempo mágico</div>
+      <p>
+        Desde noviembre de 2025… algo empezó a cambiar dentro de mí.<br>
+        Como si el destino hubiera susurrado tu nombre.
+      </p>
+      <div class="counter" id="counter"></div>
+    </div>
+
+    <!-- Distancia -->
+    <div class="card">
+      <div class="title">🌍 Distancia entre nosotros</div>
+
+      <p>
+        Dicen que la distancia enfría…  
+        pero contigo es al revés, Manzanita 🍎✨  
+        mientras más lejos estás, más te siento.
+      </p>
+
+      <div class="scroll" style="text-align:center;">
+        <div style="font-size:1.1rem; margin-bottom:12px;">
+          📍 <b id="city1"></b>  ❤️‍🔥  <b id="city2"></b> 📍
+        </div>
+
+        <div style="font-size:3.2rem; margin:10px 0;">
+          🗺️✨
+        </div>
+
+        <div style="opacity:0.85; font-size:1rem; margin-bottom:15px;">
+          Como si una línea invisible de magia uniera nuestras almas.
+        </div>
+
+        <button class="btn" onclick="calculateDistance()">
+          💞 Revelar nuestra distancia
+        </button>
+
+        <div id="distanceResult" style="
+          display:none;
+          margin-top:18px;
+          font-size:1.1rem;
+          color:#ffffff;
+          line-height:1.9;
+          text-shadow:0 0 12px rgba(0,0,0,0.55);
+          animation: fadeIn 1.5s ease;
+        "></div>
+      </div>
+    </div>
+
+    <!-- Selector de hechizos -->
+    <div class="card">
+      <div class="title">🪄 Elige un hechizo, Manzanita</div>
+      <p>
+        Cada hechizo guarda un mensaje diferente…  
+        elige uno y deja que la magia te lo diga 💖
+      </p>
+
+      <select id="spellSelect">
+        <option value="0">✨ Selecciona un hechizo...</option>
+        <option value="1">💘 Amortentia (amor)</option>
+        <option value="2">🌙 Lumos (luz en la distancia)</option>
+        <option value="3">🦉 Patronus (protección)</option>
+        <option value="4">🍎 Encanto Manzanita</option>
+        <option value="5">🔥 Incendio (pasión)</option>
+      </select>
+
+      <button class="btn" onclick="castSpell()">
+        🪄 Lanzar hechizo
+      </button>
+
+      <div class="scroll" id="spellMessage" style="display:none;"></div>
+    </div>
+
+    <!-- Pergamino -->
+    <div class="card">
+      <div class="title">📜 Pergamino encantado</div>
+
+      <p>
+        Toca el botón y deja que la magia hable por mí…
+      </p>
+
+      <button class="btn" onclick="showSpellScroll()">
+        ✨ Activar pergamino
+      </button>
+
+      <div class="scroll" id="spellScroll" style="display:none;">
+        <b>Hechizo del corazón:</b><br><br>
+        Manzanita 🍎…<br>
+        No sé en qué momento te metiste en mis pensamientos,  
+        pero ahora vives ahí como si siempre hubieras pertenecido.<br><br>
+
+        Y aunque la distancia quiera ser cruel,  
+        yo voy a seguir eligiéndote en silencio…  
+        hasta que algún día pueda decírtelo frente a tus ojos. 💖
+      </div>
+    </div>
+
+    <!-- Secreto -->
+    <div class="card">
+      <div class="title">💌 Mensaje que no te digo siempre</div>
+      <p>
+        Hay algo raro en ti…<br>
+        algo que calma, algo que atrapa, algo que me hace sonreír sin razón.<br><br>
+        Y lo más lindo es que esto apenas está comenzando…
+      </p>
+
+      <button class="btn" onclick="showSecret()">
+        🪄 Revelar secreto
+      </button>
+
+      <div class="scroll" id="secretScroll" style="display:none;">
+        Te confieso algo, Manzanita 🍎✨…<br><br>
+        Cuando me hablas, el mundo se vuelve más suave.<br>
+        Cuando no estás, todo se siente un poquito más gris.<br><br>
+        Y aunque estemos lejos…<br>
+        mi corazón ya aprendió tu dirección.
+      </div>
+    </div>
+
+    <!-- Promesa -->
+    <div class="card">
+      <div class="title">🦉 Promesa desde la distancia</div>
+      <p>
+        Si el destino quiere ponernos pruebas, que lo intente…  
+        porque yo no pienso rendirme tan fácil.
+      </p>
+
+      <div class="scroll">
+        💖 Prometo cuidarte incluso desde lejos.<br>
+        💖 Prometo ser paz y no tormenta.<br>
+        💖 Prometo que si un día dudas… yo te lo recordaré.<br><br>
+
+        Porque esto no se siente como algo pasajero…<br>
+        esto se siente como magia.
+      </div>
+    </div>
+
+    <footer>
+      Hecho con amor, magia y pensamientos en ti 🍎✨<br>
+      <b>Feliz San Valentín</b> 💘<br><br>
+      “Lo nuestro no es distancia… lo nuestro es destino.”
+    </footer>
+
+  </div>
+
+  <script>
+    /* Crear estrellas */
+    const starsContainer = document.getElementById("stars");
+    for(let i=0; i<120; i++){
+      const star = document.createElement("div");
+      star.classList.add("star");
+      star.style.top = Math.random()*100 + "%";
+      star.style.left = Math.random()*100 + "%";
+      star.style.animationDelay = Math.random()*3 + "s";
+      starsContainer.appendChild(star);
+    }
+
+    /* Corazones flotando */
+    function createHearts(){
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "💖";
+      heart.style.left = Math.random()*100 + "vw";
+      heart.style.fontSize = (Math.random()*20 + 15) + "px";
+      heart.style.animationDuration = (Math.random()*4 + 6) + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 8000);
+    }
+    setInterval(createHearts, 900);
+
+    /* Carta bienvenida */
+    const letter = document.getElementById("letter");
+    setTimeout(() => {
+      letter.style.display = "block";
+      createMagicBurst();
+    }, 6000);
+
+    function closeLetter(){
+      letter.style.display = "none";
+      createMagicBurst();
+    }
+
+    /* Contador desde Noviembre 2025 */
+    const startDate = new Date("2025-11-01T00:00:00");
+
+    function updateCounter(){
+      const now = new Date();
+      const diff = now - startDate;
+
+      const days = Math.floor(diff / (1000*60*60*24));
+      const hours = Math.floor((diff / (1000*60*60)) % 24);
+      const minutes = Math.floor((diff / (1000*60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById("counter").innerHTML =
+        `${days} días ✨ ${hours} horas 💖 ${minutes} min 🌙 ${seconds} seg`;
+    }
+    setInterval(updateCounter, 1000);
+    updateCounter();
+
+    /* Pergamino */
+    function showSpellScroll(){
+      const scroll = document.getElementById("spellScroll");
+      scroll.style.display = scroll.style.display === "none" ? "block" : "none";
+      createMagicBurst();
+    }
+
+    /* Secreto */
+    function showSecret(){
+      const scroll = document.getElementById("secretScroll");
+      scroll.style.display = scroll.style.display === "none" ? "block" : "none";
+      createMagicBurst();
+    }
+
+    /* Coordenadas */
+    const myLocation = {
+      name: "Samaná, Caldas, Colombia 🇨🇴",
+      lat: 5.4130,
+      lon: -74.9930
+    };
+
+    const herLocation = {
+      name: "Houston, Texas, USA 🇺🇸",
+      lat: 29.7604,
+      lon: -95.3698
+    };
+
+    document.getElementById("city1").innerText = myLocation.name;
+    document.getElementById("city2").innerText = herLocation.name;
+
+    /* Fórmula Haversine */
+    function haversine(lat1, lon1, lat2, lon2) {
+      const R = 6371;
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
+    }
+
+    function calculateDistance() {
+      const distance = haversine(
+        myLocation.lat,
+        myLocation.lon,
+        herLocation.lat,
+        herLocation.lon
+      ).toFixed(0);
+
+      const result = document.getElementById("distanceResult");
+      result.style.display = "block";
+
+      result.innerHTML = `
+        ✨ La magia dice que estamos separados por...<br><br>
+        <b style="font-size:1.8rem; color:#ffd1f0; text-shadow:0 0 14px rgba(255,150,220,0.8);">
+          ${distance} km
+        </b><br><br>
+        Pero aún así…<br>
+        <b>yo te siento más cerca que a cualquiera.</b><br><br>
+        🦉💌 Desde Samaná hasta Houston, mi amor viaja como una lechuza,<br>
+        buscando tu corazón sin perderse jamás.<br><br>
+        🍎✨ Manzanita… algún día esta distancia solo será un recuerdo.
+      `;
+
+      createMagicBurst();
+    }
+
+    /* Selector de hechizos */
+    function castSpell(){
+      const spell = document.getElementById("spellSelect").value;
+      const msgBox = document.getElementById("spellMessage");
+
+      let message = "";
+
+      if(spell == "0"){
+        message = "✨ Manzanita… tienes que elegir un hechizo primero 🍎💖";
+      }
+      else if(spell == "1"){
+        message = `
+          <b>💘 Amortentia</b><br><br>
+          Dicen que esta poción muestra el aroma de lo que más deseas…<br><br>
+          Y si existiera de verdad…  
+          yo estoy seguro que olería a ti, Manzanita 🍎✨<br><br>
+          Porque me estás encantando de una manera peligrosa… y bonita.
+        `;
+      }
+      else if(spell == "2"){
+        message = `
+          <b>🌙 Lumos</b><br><br>
+          Cuando la distancia se siente pesada…<br>
+          tú apareces como una luz suave en mi mente.<br><br>
+          Y aunque estemos lejos…  
+          yo siempre voy a encontrarte en la oscuridad, Manzanita 🍎✨
+        `;
+      }
+      else if(spell == "3"){
+        message = `
+          <b>🦉 Expecto Patronum</b><br><br>
+          Si algún día estás triste…  
+          quiero que recuerdes que aquí hay alguien que te piensa bonito.<br><br>
+          Mi Patronus sería una lechuza…  
+          porque siempre va a buscarte, siempre va a cuidarte.<br><br>
+          Incluso desde lejos 💖
+        `;
+      }
+      else if(spell == "4"){
+        message = `
+          <b>🍎 Encanto Manzanita</b><br><br>
+          Este es un hechizo raro…<br>
+          porque no se lanza con varita…<br>
+          se lanza con el corazón.<br><br>
+          Y el efecto es simple:<br>
+          <b>me haces sonreír como un tonto.</b><br><br>
+          Y lo peor… es que me encanta 😭🍎✨
+        `;
+      }
+      else if(spell == "5"){
+        message = `
+          <b>🔥 Incendio</b><br><br>
+          Hay cosas que no deberían encenderse…<br>
+          pero tú encendiste algo en mí sin siquiera intentarlo.<br><br>
+          Y aunque no te tenga cerca…  
+          mi corazón se acelera cuando pienso en ti, Manzanita 🍎💘
+        `;
+      }
+
+      msgBox.style.display = "block";
+      msgBox.innerHTML = message;
+
+      createMagicBurst();
+    }
+
+    /* Explosión mágica */
+    function createMagicBurst(){
+      for(let i=0; i<18; i++){
+        const sparkle = document.createElement("div");
+        sparkle.classList.add("sparkle");
+        sparkle.style.left = (Math.random()*100) + "vw";
+        sparkle.style.top = (Math.random()*100) + "vh";
+        sparkle.style.animationDelay = (Math.random()*0.3) + "s";
+        document.body.appendChild(sparkle);
+
+        setTimeout(() => {
+          sparkle.remove();
+        }, 1200);
+      }
+    }
+
+    /* Magia al tocar */
+    document.addEventListener("click", function(e){
+      const sparkle = document.createElement("div");
+      sparkle.classList.add("sparkle");
+      sparkle.style.left = e.clientX + "px";
+      sparkle.style.top = e.clientY + "px";
+      document.body.appendChild(sparkle);
+
+      setTimeout(() => {
+        sparkle.remove();
+      }, 1200);
+    });
+  </script>
+
+</body>
+</html>
+
+
